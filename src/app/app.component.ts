@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { IAppState, IIngredient, IRecipe } from './store/interfaces';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +9,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'app';
+
+  public ingredients: Observable<Array<IIngredient>>;
+  public cocktails: Observable<Array<IRecipe>>;
+
+  constructor(private store: Store<IAppState>) {
+    this.ingredients = store.select('ingredients');
+    this.cocktails = store.select('cocktails');
+  }
 }

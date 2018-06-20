@@ -1,0 +1,6 @@
+<div class="recipe-list">
+  <app-recipe-card *ngFor="let recipe of recipes" class="recipe-list__item" [recipe]="recipe"></app-recipe-card>
+</div>
+<div *ngIf="!recipes.length">
+  Oh no! 😭 You don't have enough ingredients to make anything.
+</div>

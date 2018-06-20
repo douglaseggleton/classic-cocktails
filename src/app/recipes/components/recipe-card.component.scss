@@ -1,0 +1,25 @@
+:host {
+  display: block;
+}
+
+.recipe-card {
+  border: 2px solid black;
+  font-weight: bold;
+  padding: 20px;
+
+  &__title {
+      text-transform: uppercase;
+  }
+}
+
+.ingredients-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+      float: left;
+      text-align: left;
+      text-transform: capitalize;
+  }
+}

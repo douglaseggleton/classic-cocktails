@@ -1,41 +1,37 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { IngredientListComponent } from './ingredient-list/ingredient-list.component';
-
 import { Store, StoreModule } from '@ngrx/store';
-import { ingredients, SET_INGREDIENTS } from './store/ingredients.reducer';
-import { cocktails, SET_RECIPES } from './store/cocktails.reducer';
 import { IAppState } from './store/interfaces';
-
 import { ApolloModule } from 'apollo-angular';
 import { HttpLinkModule } from 'apollo-angular-link-http';
 import { HttpClientModule } from '@angular/common/http';
-
 import { Apollo } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { IngredientsModule  } from './ingredients/ingredients.module';
+import { CollectionActionTypes as IngredientsCollectionActionTypes } from './ingredients/actions/collection.actions';
+import { CollectionActionTypes as RecipesCollectionActionTypes } from './recipes/actions/collection.actions';
+import { RecipesModule } from './recipes/recipes.module';
 import gql from 'graphql-tag';
-import { RecipeCardComponent } from './recipe-card/recipe-card.component';
 
 
 @NgModule({
   declarations: [
-    AppComponent,
-    IngredientListComponent,
-    RecipeCardComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
-    StoreModule.forRoot({ 
-      ingredients,
-      cocktails
-     }
-    ),
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+    }),
     HttpClientModule,
     ApolloModule,
-    HttpLinkModule
+    HttpLinkModule,
+    IngredientsModule,
+    RecipesModule
   ],
   providers: [
   ],
@@ -72,11 +68,11 @@ export class AppModule {
       query
     }).subscribe(({data, loading}: any) => {
       this._store.dispatch({
-        type: SET_INGREDIENTS,
+        type: IngredientsCollectionActionTypes.Load,
         payload: data.allIngredients
       })
       this._store.dispatch({
-        type: SET_RECIPES,
+        type: RecipesCollectionActionTypes.Load,
         payload: data.allRecipes
       })
     })

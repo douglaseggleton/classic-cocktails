@@ -30,4 +30,17 @@ export class AppComponent {
       payload: ingredient.id
     })
   }
+
+  public randomize() {
+    this.store.pipe(select(fromRecipes.getAllRecipes)).subscribe((recipes) => {
+      const ingredients: Array<Ingredient["id"]> = recipes[Math.floor(Math.random()*recipes.length)].ingredients.map((ingredient) => {
+        return ingredient.ingredient.id;
+      })
+      this.store.dispatch({
+        type: IngredientActionTypes.SelectMultiple,
+        payload: ingredients
+      });
+    }).unsubscribe();
+   
+  }
 }

@@ -30,7 +30,12 @@ export function reducer(
       return {
         ...state,
         selected
-      }  
+      }
+    case IngredientActionTypes.SelectMultiple:
+      return {
+        ...state,
+        selected: action.payload
+      }
     default: {
       return state;
     }

@@ -1,11 +1,13 @@
-<div class="mt6 b--black b--solid tc pa4 mw8 basis-100 mt-100px pa-4 ma2">
+<div class="mt6 b--black b--solid tc pa4 mw8 basis-100 mt-100px pa-4 ma2 bg-white">
   <div class="cover bgimg-logo h-200px w-200px nmt-100px br-100px b--black b--solid mr-auto ml-auto"></div>
   <h1>Doug's Classic Cocktails</h1>
   <p>Learn how to make a selection of classic cocktails by selecting the ingredients you have.</p>
+  <h2>Select Your Ingredients</h2>
   <div class="ingredients">
     <app-ingredient-list [ingredients]="ingredients$ | async" (toggle)="selectIngredient($event)"></app-ingredient-list>
   </div>
-  <h2>Cocktail Recipes</h2>
+  <h2>Choose a Cocktail</h2>
+  <button class="bg-black white pv3 ph3 b ttu ma1 mb3" (click)="randomize()">Randomize 🎲</button>
   <div class="recipes">
     <app-recipe-list [recipes]="recipes$ | async"></app-recipe-list>
   </div>

@@ -4,7 +4,7 @@
   <p>Learn how to make a selection of classic cocktails by selecting the ingredients you have.</p>
   <h2>Select Your Ingredients</h2>
   <div class="ingredients">
-    <app-ingredient-list [ingredients]="ingredients$ | async" (toggle)="selectIngredient($event)"></app-ingredient-list>
+    <app-ingredient-list [ingredients]="ingredients$ | async" (selected)="selectIngredient($event)"></app-ingredient-list>
   </div>
   <h2>Choose a Cocktail</h2>
   <button class="bg-black white pv3 ph3 b ttu ma1 mb3" (click)="randomize()">Randomize 🎲</button>

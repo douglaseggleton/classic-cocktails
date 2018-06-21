@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { IAppState } from './store/interfaces';
 import { Observable } from 'rxjs';
-import * as fromIngredients from './ingredients/reducers';
-import * as fromRecipes from './recipes/reducers';
-import { Ingredient } from './ingredients/models/ingredient';
-import { IngredientActionTypes } from './ingredients/actions/ingredient.actions';
+
+// Recipe Imports
 import { Recipe } from './recipes/models/recipe';
+import * as fromRecipes from './recipes/reducers';
+
+// Ingredient Imports
+import { Ingredient } from './ingredients/models/ingredient';
+import * as fromIngredients from './ingredients/reducers';
+import { ActionTypes as IngredientActionTypes } from './ingredients/actions/ingredient.actions';
+
+export interface RootAppState {
+  ingredients: fromIngredients.State;
+  recipes: fromRecipes.State
+}
 
 @Component({
   selector: 'app-root',
@@ -19,14 +27,14 @@ export class AppComponent {
   public recipes$: Observable<Array<Recipe>>;
   public selectedIngredients$: Observable<Array<Ingredient>>;
 
-  constructor(private store: Store<IAppState>) {
+  constructor(private store: Store<RootAppState>) {
     this.recipes$ = store.pipe(select(fromRecipes.getAvailableRecipes));
     this.ingredients$ = store.pipe(select(fromIngredients.getIngredientCollection));
   }
 
   public selectIngredient(ingredient: Ingredient) {
     this.store.dispatch({
-      type: IngredientActionTypes.Toggle,
+      type: IngredientActionTypes.ToggleIngredient,
       payload: ingredient.id
     })
   }
@@ -37,7 +45,7 @@ export class AppComponent {
         return ingredient.ingredient.id;
       })
       this.store.dispatch({
-        type: IngredientActionTypes.SelectMultiple,
+        type: IngredientActionTypes.SelectMultipleIngredients,
         payload: ingredients
       });
     }).unsubscribe();

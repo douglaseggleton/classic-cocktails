@@ -7,17 +7,17 @@ import * as fromRecipes from './recipes.reducer';
 import * as fromCollection from './collection.reducer';
 import * as fromIngredients from './../../ingredients/reducers';
 
-export interface RecipesState {
+export interface State {
   recipes: fromRecipes.State;
   collection: fromCollection.State;
 }
 
-export const reducers: ActionReducerMap<RecipesState> = {
+export const reducers: ActionReducerMap<State> = {
   recipes: fromRecipes.reducer,
   collection: fromCollection.reducer
 };
 
-export const getRecipesState = createFeatureSelector<RecipesState>('recipes');
+export const getRecipesState = createFeatureSelector<State>('recipes');
 
 export const getRecipeEntitiesState = createSelector(
   getRecipesState,
@@ -33,7 +33,7 @@ export const {
 
 export const getCollectionState = createSelector(
   getRecipesState,
-  (state: RecipesState) => state.collection
+  (state: State) => state.collection
 );
 
 export const getCollectionRecipeIds = createSelector(

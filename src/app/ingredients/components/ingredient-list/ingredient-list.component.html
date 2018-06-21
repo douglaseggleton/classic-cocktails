@@ -1,0 +1,8 @@
+<div class="ingredients">
+  <div *ngFor="let ingredient of ingredients"
+    class="ingredients__item"
+    [class.ingredients__item--selected]="ingredient.selected" 
+    (click)="selected.emit(ingredient)">
+      {{ ingredient.name }}
+  </div>
+</div>

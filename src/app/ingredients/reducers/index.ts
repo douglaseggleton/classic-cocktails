@@ -1,22 +1,18 @@
-import {
-  createSelector,
-  createFeatureSelector,
-  ActionReducerMap,
-} from '@ngrx/store';
+import { createSelector, createFeatureSelector, ActionReducerMap } from '@ngrx/store';
 import * as fromIngredients from './ingredients.reducer';
 import * as fromCollection from './collection.reducer';
 
-export interface IngredientsState {
+export interface State {
   ingredients: fromIngredients.State;
   collection: fromCollection.State;
 }
 
-export const reducers: ActionReducerMap<IngredientsState> = {
+export const reducers: ActionReducerMap<State> = {
   ingredients: fromIngredients.reducer,
   collection: fromCollection.reducer
 };
 
-export const getIngredientsState = createFeatureSelector<IngredientsState>('ingredients');
+export const getIngredientsState = createFeatureSelector<State>('ingredients');
 
 export const getIngredientEntitiesState = createSelector(
   getIngredientsState,
@@ -32,12 +28,12 @@ export const {
 
 export const getCollectionState = createSelector(
   getIngredientsState,
-  (state: IngredientsState) => state.collection
+  (state: State) => state.collection
 );
 
 export const getCollectionIngredientIds = createSelector(
   getCollectionState,
-  fromCollection.getIds
+  (state: fromCollection.State) => state.ids
 );
 
 export const getSelectedIngredientsIds = createSelector(
@@ -63,7 +59,6 @@ export const getSelectedIngredientCollection = createSelector(
   getIngredientEntities,
   getSelectedIngredientsIds,
   (entities, selectedIds) => {
-    console.log(selectedIds);
     return selectedIds.map(id => entities[id]);
   }
 )

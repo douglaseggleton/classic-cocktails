@@ -10,10 +10,18 @@
       text-transform: uppercase;
       margin: 10px;
       cursor: pointer;
+      
+      &:after {
+        content: '+';
+      }
 
       &--selected {
           color: white;
           background: black;
+
+          &:after {
+             content: '-';
+          }
       }
   }
 }

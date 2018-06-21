@@ -1,7 +1,7 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Ingredient } from './../models/ingredient';
-import { IngredientActionsUnion, IngredientActionTypes } from './../actions/ingredient.actions';
-import { CollectionActionsUnion, CollectionActionTypes } from './../actions/collection.actions';
+import { Actions, ActionTypes } from './../actions/ingredient.actions';
+import { CollectionActions, CollectionActionTypes } from '../actions/collection.actions';
 
 export interface State extends EntityState<Ingredient> {
   selected: Array<Ingredient["id"]>
@@ -15,15 +15,15 @@ export const initialState: State = adapter.getInitialState({
 
 export function reducer(
   state = initialState,
-  action: IngredientActionsUnion | CollectionActionsUnion
+  action: Actions | CollectionActions
 ): State {
   switch (action.type) {
-    case CollectionActionTypes.Load: {
+    case CollectionActionTypes.SetIngredients: {
       return adapter.addMany(action.payload, {
         ...state
       });
     }
-    case IngredientActionTypes.Toggle:
+    case ActionTypes.ToggleIngredient:
       const selected = state.selected;
       const index = state.selected.indexOf(action.payload);
       index === -1 ? state.selected.push(action.payload) : state.selected.splice(index, 1);
@@ -31,7 +31,7 @@ export function reducer(
         ...state,
         selected
       }
-    case IngredientActionTypes.SelectMultiple:
+    case ActionTypes.SelectMultipleIngredients:
       return {
         ...state,
         selected: action.payload

@@ -1,6 +1,6 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import { Recipe } from './../models/recipe';
-import { CollectionActionsUnion, CollectionActionTypes } from './../actions/collection.actions';
+import { CollectionActions, CollectionActionTypes } from '../actions/collection.actions';
 
 export interface State extends EntityState<Recipe> {}
 
@@ -12,10 +12,10 @@ export const initialState: State = adapter.getInitialState({
 
 export function reducer(
   state = initialState,
-  action: CollectionActionsUnion
+  action: CollectionActions
 ): State {
   switch (action.type) {
-    case CollectionActionTypes.Load: {
+    case CollectionActionTypes.SetRecipes: {
       return adapter.addMany(action.payload, {
         ...state
       });

@@ -1,7 +1,4 @@
-import {
-  CollectionActionTypes,
-  CollectionActionsUnion,
-} from './../actions/collection.actions';
+import * as fromCollection from '../actions/collection.actions';
 
 export interface State {
   ids: Array<string>;
@@ -13,10 +10,10 @@ const initialState: State = {
 
 export function reducer(
   state = initialState,
-  action: CollectionActionsUnion
+  action: fromCollection.CollectionActions
 ): State {
   switch (action.type) {
-    case CollectionActionTypes.Load: {
+    case fromCollection.CollectionActionTypes.SetRecipes: {
       return {
         ids: action.payload.map(recipe => recipe.id)
       };

@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { RecipeCardComponent } from './recipe-card.component';
-import { RecipeListComponent } from './recipe-list.component';
+import { RecipeCardComponent } from './recipe-card/recipe-card.component';
+import { RecipeListComponent } from './recipe-list/recipe-list.component';
 
 export const COMPONENTS = [
   RecipeCardComponent,

@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed} from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { IngredientListComponent } from './ingredient-list.component';
 import { DebugElement } from '@angular/core';
-import { Ingredient } from '../../models/ingredient';
+import { Ingredient } from '../../models';
 
 const testIngredients = [{
   name: 'Lime',

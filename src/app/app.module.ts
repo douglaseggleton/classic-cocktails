@@ -10,8 +10,8 @@ import { HttpLink } from 'apollo-angular-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { IngredientsModule  } from './ingredients/ingredients.module';
-import { CollectionActionTypes as IngredientCollectionActionTypes } from './ingredients/actions';
-import { CollectionActionTypes as RecipeCollectionActionTypes } from './recipes/actions/collection.actions';
+import { ActionTypes as IngredientActionTypes } from './ingredients/actions';
+import { ActionTypes as RecipeCollectionActionTypes } from './recipes/actions';
 import { RecipesModule } from './recipes/recipes.module';
 import gql from 'graphql-tag';
 
@@ -67,7 +67,7 @@ export class AppModule {
       query
     }).subscribe(({data, loading}: any) => {
       this.store.dispatch({
-        type: IngredientCollectionActionTypes.SetIngredients,
+        type: IngredientActionTypes.SetIngredients,
         payload: data.allIngredients
       })
       this.store.dispatch({

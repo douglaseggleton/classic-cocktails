@@ -1,19 +1,17 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-
-// Recipe Imports
 import { Recipe } from './recipes/models/recipe';
-import * as fromRecipes from './recipes/reducers';
-
-// Ingredient Imports
-import { Ingredient } from './ingredients/models/ingredient';
-import * as fromIngredients from './ingredients/reducers';
-import { ActionTypes as IngredientActionTypes } from './ingredients/actions/ingredient.actions';
+import { State as RecipeState } from './recipes/reducers';
+import { State as IngredientState} from './ingredients/reducers';
+import { ActionTypes as IngredientActionTypes } from './ingredients/actions';
+import { Ingredient } from './ingredients/models';
+import * as fromRecipes from './recipes/selectors';
+import * as fromIngredients from './ingredients/selectors';
 
 export interface RootAppState {
-  ingredients: fromIngredients.State;
-  recipes: fromRecipes.State
+  ingredients: IngredientState;
+  recipes: RecipeState
 }
 
 @Component({
@@ -29,7 +27,7 @@ export class AppComponent {
 
   constructor(private store: Store<RootAppState>) {
     this.recipes$ = store.pipe(select(fromRecipes.getAvailableRecipes));
-    this.ingredients$ = store.pipe(select(fromIngredients.getIngredientCollection));
+    this.ingredients$ = store.pipe(select(fromIngredients.getIngredients));
   }
 
   public selectIngredient(ingredient: Ingredient) {

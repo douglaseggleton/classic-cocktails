@@ -1,5 +1,5 @@
 import { reducer } from './ingredients.reducer';
-import { ToggleIngredient, ActionTypes, SelectMultipleIngredients } from './../actions/ingredient.actions';
+import { ToggleIngredient, ActionTypes, SelectMultipleIngredients, SetIngredients } from './../actions';
 
 describe('IngredientsReducer', () => {
   describe(ActionTypes.ToggleIngredient, () => {
@@ -38,6 +38,26 @@ describe('IngredientsReducer', () => {
         selected: ['5', '6', '7'],
         ids: [],
         entities: {}
+      });
+    });
+  });
+
+  describe(ActionTypes.SetIngredients, () => {
+    it('should add the selected id', () => {
+      const testIngredient = {
+        id: '1',
+        name: 'test ingredient'
+      };
+      expect(reducer({
+        selected: [],
+        ids: [],
+        entities: {}
+      }, new SetIngredients([testIngredient]))).toEqual({
+        ids: ['1'],
+        entities: {
+          "1": { id: '1', name: 'test ingredient' }
+        },
+        selected: []
       });
     });
   });

@@ -1,2 +1,1 @@
-export * from './ingredient.actions';
-export * from './collection.actions';
+export * from './ingredients.actions';

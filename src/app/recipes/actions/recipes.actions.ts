@@ -1,14 +1,14 @@
 import { Action } from '@ngrx/store';
 import { Recipe } from '../models/recipe';
 
-export enum CollectionActionTypes {
+export enum ActionTypes {
   SetRecipes = '[Recipes] SetRecipes'
 }
 
 export class SetRecipes implements Action {
-  readonly type = CollectionActionTypes.SetRecipes;
+  readonly type = ActionTypes.SetRecipes;
   constructor(public payload: Recipe[]) {}
 }
 
-export type CollectionActions =
+export type Actions =
   | SetRecipes

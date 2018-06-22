@@ -1,4 +1,4 @@
-import { Ingredient } from './../../ingredients/models/ingredient';
+import { Ingredient } from './../../ingredients/models';
 
 export interface Measure {
   ingredient: Ingredient;

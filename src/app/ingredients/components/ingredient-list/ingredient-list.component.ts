@@ -1,5 +1,5 @@
 import { Component, Input, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
-import { Ingredient } from './../../models/ingredient';
+import { Ingredient } from './../../models';
 
 @Component({
   selector: 'app-ingredient-list',

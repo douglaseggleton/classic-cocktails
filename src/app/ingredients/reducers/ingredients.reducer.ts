@@ -1,28 +1,28 @@
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { Ingredient } from './../models/ingredient';
-import { Actions, ActionTypes } from './../actions/ingredient.actions';
-import { CollectionActions, CollectionActionTypes } from '../actions/collection.actions';
+import { Ingredient } from './../models';
+import { Actions, ActionTypes } from './../actions';
 
 export interface State extends EntityState<Ingredient> {
   selected: Array<Ingredient["id"]>
+  ids: Array<Ingredient["id"]>
 }
 
 export const adapter: EntityAdapter<Ingredient> = createEntityAdapter<Ingredient>({});
 
 export const initialState: State = adapter.getInitialState({
-  selected: []
+  selected: [],
+  ids: []
 });
 
 export function reducer(
   state = initialState,
-  action: Actions | CollectionActions
+  action: Actions
 ): State {
   switch (action.type) {
-    case CollectionActionTypes.SetIngredients: {
+    case ActionTypes.SetIngredients:
       return adapter.addMany(action.payload, {
         ...state
       });
-    }
     case ActionTypes.ToggleIngredient:
       const selected = state.selected;
       const index = state.selected.indexOf(action.payload);
@@ -36,6 +36,12 @@ export function reducer(
         ...state,
         selected: action.payload
       }
+    case ActionTypes.SetIngredients: {
+      return {
+        ...state,
+        ids: action.payload.map(ingredient => ingredient.id)
+      };
+    }
     default: {
       return state;
     }
